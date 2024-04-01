@@ -15,6 +15,7 @@ then execute the command :
 ```bash
 make
 ```
+this should gives you a library named libftprintf.a that you can import in a project
 
 ## Have fun!
 
