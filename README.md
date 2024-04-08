@@ -33,4 +33,4 @@ This are the differents flags implemented :
 * %i to print an integer
 * %u to print an unsigned integer
 
-  If you encounter any bugs please contact me at maemaldo@student.42.fr
+If you encounter any bugs please contact me at maemaldo@student.42.fr
