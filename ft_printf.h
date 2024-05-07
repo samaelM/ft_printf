@@ -6,7 +6,7 @@
 /*   By: maemaldo <maemaldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:57:39 by maemaldo          #+#    #+#             */
-/*   Updated: 2024/03/27 13:21:46 by maemaldo         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:30:48 by maemaldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,11 @@ char	*ft_ltoa_hexa(unsigned long long n, char format);
 int		ft_utoa_size(long nb);
 char	*ft_utoa(unsigned int n);
 char	*printf_s(const char *src);
+char	*printf_p(long n);
+void	ft_put_and_free(char *argc, int *len);
+void	ft_putlen(const char *c, int i, int *len);
+int		ft_putstr_fd2(char *s, int fd);
+void	ft_printc(char c, int fd, int *len);
+int		ft_putchar_fd2(char c, int fd);
 
 #endif

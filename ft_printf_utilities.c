@@ -5,102 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: maemaldo <maemaldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 13:56:47 by maemaldo          #+#    #+#             */
-/*   Updated: 2024/03/14 13:58:47 by maemaldo         ###   ########.fr       */
+/*   Created: 2023/11/29 14:47:01 by maemaldo          #+#    #+#             */
+/*   Updated: 2024/04/23 13:16:24 by maemaldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_ltoa_hexa_size(unsigned long long nb)
+char	*printf_p(long n)
 {
-	int	nlen;
-
-	nlen = 0;
-	if (nb < 0)
-	{
-		nlen = 1;
-		nb = -nb;
-	}
-	while (nb > 0)
-	{
-		nb /= 16;
-		nlen++;
-	}
-	return (nlen);
-}
-
-char	*ft_ltoa_hexa(unsigned long long n, char format)
-{
-	size_t				nlen;
-	char				*res;
-	unsigned long long	num;
+	char	*dest;
+	char	*last;
 
 	if (n == 0)
-		return (ft_strdup("0"));
-	num = n;
-	nlen = ft_ltoa_hexa_size(num);
-	res = ft_calloc((nlen + 1) * sizeof(char), 1);
-	res[nlen--] = '\0';
-	if (n < 0)
-	{
-		0 [res] = '-';
-		num = -num;
-	}
-	while (nlen >= 0 && num > 0)
-	{
-		res[nlen] = "0123456789abcdef"[(num % 16)];
-		if (format == 'X' && (res[nlen] >= 'a' && res[nlen] <= 'f'))
-			res[nlen] -= 32;
-		num /= 16;
-		nlen--;
-	}
-	return (res);
-}
-
-int	ft_utoa_size(long nb)
-{
-	int	nlen;
-
-	nlen = 0;
-	if (nb < 0)
-	{
-		nlen = 1;
-		nb = -nb;
-	}
-	while (nb > 0)
-	{
-		nb /= 10;
-		nlen++;
-	}
-	return (nlen);
-}
-
-char	*ft_utoa(unsigned int n)
-{
-	unsigned int	nlen;
-	long			num;
-	char			*res;
-
-	if (n == 0)
-		return (ft_strdup("0"));
-	num = n;
-	nlen = ft_utoa_size(num);
-	res = malloc((nlen + 1) * sizeof(char));
-	if (!res)
+		return (ft_strdup("(nil)"));
+	last = ft_ltoa_hexa(n, 'x');
+	if (!last)
 		return (NULL);
-	res[nlen--] = '\0';
-	if (n < 0)
-	{
-		res[0] = '-';
-		num = -num;
-	}
-	while (nlen >= 0 && num > 0)
-	{
-		res[nlen--] = '0' + (num % 10);
-		num /= 10;
-	}
-	return (res);
+	dest = ft_strjoin("0x", last);
+	if (!dest)
+		return (NULL);
+	free(last);
+	return (dest);
 }
 
 char	*printf_s(const char *src)
@@ -112,4 +38,33 @@ char	*printf_s(const char *src)
 	else
 		dest = ft_strdup(src);
 	return (dest);
+}
+
+void	ft_printc(char c, int fd, int *len)
+{
+	if (ft_putchar_fd2(c, fd) != -1 && *len >= 0)
+		(*len)++;
+	else
+		(*len) = -1;
+}
+
+int	ft_putstr_fd2(char *s, int fd)
+{
+	size_t	i;
+	size_t	len;
+
+	if (!s)
+		return (-1);
+	i = 0;
+	len = ft_strlen(s);
+	len = write(fd, s, len);
+	return (len);
+}
+
+void	ft_putlen(const char *c, int i, int *len)
+{
+	if (write(1, &c[i], 1) == -1)
+		(*len) = -1;
+	else if (len >= 0)
+		(*len)++;
 }
